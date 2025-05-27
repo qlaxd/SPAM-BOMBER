@@ -178,3 +178,8 @@ def selectnode(mode="sms"):
             except Exception:
                 mesgdcrt.FailureMessage("Read Instructions Carefully !!!")
                 print()
+            
+        workernode(mode, cc, target, count, delay, max_threads)
+    except KeyboardInterrupt:
+        mesgdcrt.WarningMessage("Received INTR call - Exiting...")
+        sys.exit()
