@@ -23,3 +23,13 @@ def get_phone_info():
             continue
         return (cc, target)
     
+def get_mail_info():
+    mail_regex = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+    while True:
+        target = input(mesgdcrt.CommandMessage("Enter target mail: "))
+        if not re.search(mail_regex, target, re.IGNORECASE):
+            mesgdcrt.WarningMessage(
+                "The mail ({target})".format(target=target) +
+                " that you have entered is invalid")
+            continue
+        return target
