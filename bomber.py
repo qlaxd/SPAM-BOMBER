@@ -124,3 +124,57 @@ def workernode(mode, cc, target, count, delay, max_threads):
     bann_text()
     sys.exit()
 
+def selectnode(mode="sms"):
+    mode = mode.lower().strip()
+    try:
+        clr()
+        bann_text()
+        check_intr()
+        check_for_updates()
+        notifyen()
+
+        max_limit = {"sms": 500, "call": 15, "mail": 200}
+        cc, target = "", ""
+        if mode in ["sms", "call"]:
+            cc, target = get_phone_info()
+            if cc != "91":
+                max_limit.update({"sms": 100})
+        elif mode == "mail":
+            target = get_mail_info()
+        else:
+            raise KeyboardInterrupt
+
+        limit = max_limit[mode]
+        while True:
+            try:
+                message = ("Enter number of {type}".format(type=mode.upper()) +
+                           " to send (Max {limit}): ".format(limit=limit))
+                count = int(input(mesgdcrt.CommandMessage(message)).strip())
+                if count > limit or count == 0:
+                    mesgdcrt.WarningMessage("You have requested " + str(count)
+                                            + " {type}".format(
+                                                type=mode.upper()))
+                    mesgdcrt.GeneralMessage(
+                        "Automatically capping the value"
+                        " to {limit}".format(limit=limit))
+                    count = limit
+                delay = float(input(
+                    mesgdcrt.CommandMessage("Enter delay time (in seconds): "))
+                    .strip())
+                # delay = 0
+                max_thread_limit = (count//10) if (count//10) > 0 else 1
+                max_threads = int(input(
+                    mesgdcrt.CommandMessage(
+                        "Enter Number of Thread (Recommended: {max_limit}): "
+                        .format(max_limit=max_thread_limit)))
+                    .strip())
+                max_threads = max_threads if (
+                    max_threads > 0) else max_thread_limit
+                if (count < 0 or delay < 0):
+                    raise Exception
+                break
+            except KeyboardInterrupt as ki:
+                raise ki
+            except Exception:
+                mesgdcrt.FailureMessage("Read Instructions Carefully !!!")
+                print()
