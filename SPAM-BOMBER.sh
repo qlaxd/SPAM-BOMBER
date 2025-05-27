@@ -84,3 +84,19 @@ install_deps(){
         exit
     fi
 }
+
+
+banner
+pause
+detect_distro
+init_environ
+if [ -f .update ];then
+    echo "All Requirements Found...."
+else
+    echo 'Installing Requirements....'
+    echo .
+    echo .
+    install_deps
+    echo 'Requirements Installed....'
+    pause
+fi
