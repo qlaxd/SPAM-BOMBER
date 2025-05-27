@@ -1,7 +1,6 @@
 ![pic](https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2019/04/email-bomb.jpg)
 
 
-
 ### Send Unlimited SMS,MAIL,CALL.
 ***
 
@@ -41,6 +40,24 @@ chmod 777 SPAM-BOMBER.sh
 ### <p align="center">Commands to run tool in ur terminal
 ***
 Use X_BOMB In Linux
+```bash
+sudo apt install git
+```
+```bash
+git clone https://github.com/qlaxd/SPAM-BOMBER
+```
+```bash
+cd SPAM-BOMBER
+```
+```bash
+./SPAM-BOMBER.sh
+```
+
+### <p align="center">Commands to run tool in ur terminal
+***
+  
+For Debian-based GNU/Linux distributions
+To use the application, type in the following commands in GNU/Linux terminal.
 ```bash
 sudo apt install git
 ```
