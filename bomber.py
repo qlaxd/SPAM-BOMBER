@@ -1,3 +1,25 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
+
+import os
+import shutil
+import sys
+import subprocess
+import string
+import random
+import json
+import re
+import time
+import argparse
+import zipfile
+from io import BytesIO
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from utils.decorators import MessageDecorator
+from utils.provider import APIProvider
+
+
 def format_phone(num):
     num = [n for n in num if n in string.digits]
     return ''.join(num).strip()
@@ -33,3 +55,35 @@ def get_mail_info():
                 " that you have entered is invalid")
             continue
         return target
+    
+def pretty_print(cc, target, success, failed):
+    requested = success+failed
+    mesgdcrt.SectionMessage("Bombing is in progress - Please be patient")
+    mesgdcrt.GeneralMessage(
+        "Please stay connected to the internet during bombing")
+    mesgdcrt.GeneralMessage("Target       : " + cc + " " + target)
+    mesgdcrt.GeneralMessage("Sent         : " + str(requested))
+    mesgdcrt.GeneralMessage("Successful   : " + str(success))
+    mesgdcrt.GeneralMessage("Failed       : " + str(failed))
+    mesgdcrt.WarningMessage(
+        "This tool was made for fun and research purposes only")
+    mesgdcrt.SuccessMessage("Do not use this tool for malicious purposes")
+
+def workernode(mode, cc, target, count, delay, max_threads):
+
+    api = APIProvider(cc, target, mode, delay=delay)
+    clr()
+    mesgdcrt.SectionMessage("Gearing up the Bomber - Please be patient")
+    mesgdcrt.GeneralMessage(
+        "Please stay connected to the internet during bombing")
+    mesgdcrt.GeneralMessage("API Version   : " + api.api_version)
+    mesgdcrt.GeneralMessage("Target        : " + cc + target)
+    mesgdcrt.GeneralMessage("Amount        : " + str(count))
+    mesgdcrt.GeneralMessage("Threads       : " + str(max_threads) + " threads")
+    mesgdcrt.GeneralMessage("Delay         : " + str(delay) +
+                            " seconds")
+    mesgdcrt.WarningMessage(
+        "This tool was made for fun and research purposes only")
+    print()
+    input(mesgdcrt.CommandMessage(
+        "Press [CTRL+Z] to suspend the bomber or [ENTER] to resume it"))
