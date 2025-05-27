@@ -37,3 +37,19 @@ chmod 777 SPAM-BOMBER.sh
 ```
 ```bash
 ./SPAM-BOMBER.sh
+```
+### <p align="center">Commands to run tool in ur terminal
+***
+Use X_BOMB In Linux
+```bash
+sudo apt install git
+```
+```bash
+git clone https://github.com/qlaxd/SPAM-BOMBER
+```
+```bash
+cd SPAM-BOMBER
+```
+```bash
+./SPAM-BOMBER.sh
+```
