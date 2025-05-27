@@ -19,3 +19,51 @@ detect_distro() {
         fi
     fi
 }
+
+pause() {
+    read -n1 -r -p "Press any key to continue..." key
+}
+banner() {
+    clear
+    echo -e "\e[1;31m"
+    if ! [ -x "$(command -v figlet)" ]; then
+        echo 'Introducing SPAM-BOMBER'
+    else
+        figlet SPAM-BOMBER
+    fi
+    if ! [ -x "$(command -v toilet)" ]; then
+        echo -e "\e[4;34m This is SPAM-BOMBER"
+    else
+        echo -e "\e[1;34mCreated By \e[1;34m"
+        toilet -f mono12 -F border qlaxd
+    fi
+    echo " "
+    echo "NOTE: Kindly move to the PIP version Of SPAM-BOMBER for more stability."
+    echo " "
+}
+
+init_environ(){
+    declare -A backends; backends=(
+        ["arch"]="pacman -S --noconfirm"
+        ["debian"]="apt-get -y install"
+        ["ubuntu"]="apt -y install"
+        ["termux"]="apt -y install"
+        ["fedora"]="yum -y install"
+        ["redhat"]="yum -y install"
+        ["SuSE"]="zypper -n install"
+        ["sles"]="zypper -n install"
+        ["darwin"]="brew install"
+        ["alpine"]="apk add"
+    )
+
+    INSTALL="${backends[$distro]}"
+
+    if [ "$distro" == "termux" ]; then
+        PYTHON="python"
+        SUDO=""
+    else
+        PYTHON="python3"
+        SUDO="sudo"
+    fi
+    PIP="$PYTHON -m pip"
+}
