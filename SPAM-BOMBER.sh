@@ -100,3 +100,40 @@ else
     echo 'Requirements Installed....'
     pause
 fi
+while :
+do
+    banner
+    echo -e "\e[4;31m Please Read Instruction Carefully !!! \e[0m"
+    echo " "
+    echo "Press 1 To  Start SMS  Bomber "
+    echo "Press 2 To  Start CALL Bomber "
+    echo "Press 3 To  Start MAIL Bomber (Not Yet Available)"
+    echo "Press 4 To  Update (Works On Linux And Linux Emulators) "
+    echo "Press 5 To  Exit "
+    read ch
+    echo "select option "
+    clear
+    if [ $ch -eq 1 ];then
+        $PYTHON bomber.py --sms
+        exit
+    elif [ $ch -eq 2 ];then
+        $PYTHON bomber.py --call
+        exit
+    elif [ $ch -eq 3 ];then
+        $PYTHON bomber.py --mail
+        exit
+    elif [ $ch -eq 4 ];then
+        echo -e "\e[1;34m Downloading Latest Files..."
+        rm -f .update
+        $PYTHON bomber.py --update
+        echo -e "\e[1;34m RUN SPAM-BOMBER Again..."
+        pause
+        exit
+    elif [ $ch -eq 5 ];then
+        banner
+        exit
+    else
+        echo -e "\e[4;32m Invalid Input !!! \e[0m"
+        pause
+    fi
+done
