@@ -183,3 +183,43 @@ def selectnode(mode="sms"):
     except KeyboardInterrupt:
         mesgdcrt.WarningMessage("Received INTR call - Exiting...")
         sys.exit()
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+    if args.ascii:
+        ASCII_MODE = True
+        mesgdcrt = MessageDecorator("stat")
+    if args.version:
+        print("Version: ", __VERSION__)
+    elif args.contributors:
+        print("Contributors: ", " ".join(__CONTRIBUTORS__))
+    elif args.update:
+        update()
+    elif args.mail:
+        selectnode(mode="mail")
+    elif args.call:
+        selectnode(mode="call")
+    elif args.sms:
+        selectnode(mode="sms")
+    else:
+        choice = ""
+        avail_choice = {
+            "1": "SMS",
+            "2": "CALL",
+            "3": "MAIL"
+        }
+        try:
+            while (choice not in avail_choice):
+                clr()
+                bann_text()
+                print("Available Options:\n")
+                for key, value in avail_choice.items():
+                    print("[ {key} ] {value} BOMB".format(key=key,
+                                                          value=value))
+                print()
+                choice = input(mesgdcrt.CommandMessage("Enter Choice : "))
+            selectnode(mode=avail_choice[choice].lower())
+        except KeyboardInterrupt:
+            mesgdcrt.WarningMessage("Received INTR call - Exiting...")
+            sys.exit()
+    sys.exit()
