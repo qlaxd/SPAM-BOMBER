@@ -123,3 +123,4 @@ def workernode(mode, cc, target, count, delay, max_threads):
     time.sleep(1.5)
     bann_text()
     sys.exit()
+
